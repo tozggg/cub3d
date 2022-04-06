@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:49:34 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/06 21:07:07 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/06 23:14:13 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,19 @@
 #define C 5
 
 
-
-typedef struct s_file
+typedef struct	s_file
 {
-	char	*str;
 	char	**split;
 	char	*info[6];
 	char	**map;
 	int		map_w;
 	int		map_h;
-	int		c_flag;
+	int		c_x;
+	int		c_y;
+	char	c_flag;
 }	t_file;
 
-typedef struct s_key
+typedef struct	s_key
 {
 	int		w;
 	int		a;
@@ -67,18 +67,18 @@ typedef struct s_key
 	int		right;
 }	t_key;
 
-typedef struct s_img
+typedef struct	s_img
 {
 	void	*img;
 	int		*data;
-	int		size_l;
 	int		bpp;
+	int		size_l;
 	int		endian;
 	int		width;
 	int		height;
 }	t_img;
 
-typedef struct s_game
+typedef struct	s_game
 {
 	void	*mlx;
 	void	*win;
@@ -89,8 +89,6 @@ typedef struct s_game
 	int		ceiling;
 	int		floor;
 	char	**map;
-	int		map_w;
-	int		map_h;
 	double	pos_x;
 	double	pos_y;
 	double	dir_x;
@@ -100,6 +98,11 @@ typedef struct s_game
 	double	movespeed;
 	double	rotspeed;
 }	t_game;
+
+typedef struct	s_dda
+{
+	
+}	t_dda;
 
 
 // libft //////////////////////////////////////////////////////////
@@ -352,14 +355,8 @@ char	*read_file(char *pathname)
 			error_out("Error\nstrjoin error");
 	}
 	free(buf);
+	close(fd);
 	return (res);
-}
-
-int	is_dir_flag(char c)
-{
-	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
-		return (1);
-	return (0);
 }
 
 char	*cut_path(char *str, char *cut)
@@ -405,7 +402,6 @@ void	init_file(t_file *file)
 {
 	int i;
 
-	file->str = NULL;
 	file->split = NULL;
 	i = 0;
 	while (i < 6)
@@ -454,34 +450,12 @@ void	init_game(t_game *game)
 	game->rotspeed = 0.05;
 }
 
-//check
-void	check_info(t_file *file)
+//check_map
+int	is_dir_flag(char c)
 {
-	int i;
-
-	i = -1;
-	while (++i < 6)
-	{
-		if (file->split[i] == NULL)
-			error_out("Error\ninvalid file");
-		if (ft_strncmp(file->split[i], "NO ", 3) == 0)
-			file->info[NO] = file->split[i];
-		else if (ft_strncmp(file->split[i], "SO ", 3) == 0)
-			file->info[SO] = file->split[i];
-		else if (ft_strncmp(file->split[i], "WE ", 3) == 0)
-			file->info[WE] = file->split[i];
-		else if (ft_strncmp(file->split[i], "EA ", 3) == 0)
-			file->info[EA] = file->split[i];
-		else if (ft_strncmp(file->split[i], "F ", 2) == 0)
-			file->info[F] = file->split[i];
-		else if (ft_strncmp(file->split[i], "C ", 2) == 0)
-			file->info[C] = file->split[i];
-	}
-	while (--i >= 0)
-	{
-		if (!file->info[i])
-			error_out("Error\ninvalid file");
-	}
+	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+		return (1);
+	return (0);
 }
 
 void	scan_map(t_file *file)
@@ -528,7 +502,7 @@ void	append_map(t_file *file)
 	file->map[i] = 0;
 }
 
-void	check_surround(t_file *file, int y, int x)
+void	check_surround(t_file *file, int x, int y)
 {
 	if ((x == 0 || x == file->map_w - 1 || y == 0 || y == file->map_h - 1) \
 		&& !(file->map[y][x] == '1' || file->map[y][x] == ' '))
@@ -552,29 +526,112 @@ void	check_surround(t_file *file, int y, int x)
 
 void	check_map(t_file *file)
 {
-	int i;
-	int j;
+	int x;
+	int y;
 
 	scan_map(file);
 	append_map(file);
-	i = -1;
-	while (file->map[++i])
+	y = -1;
+	while (file->map[++y])
 	{
-		j = -1;
-		while (file->map[i][++j])
+		x = -1;
+		while (file->map[y][++x])
 		{
-			if (!(file->map[i][j] == '1' || file->map[i][j] == '0' || file->map[i][j] == ' '))
+			if (!(file->map[y][x] == '1' || file->map[y][x] == '0' || file->map[y][x] == ' '))
 			{
-				if (!file->c_flag && is_dir_flag(file->map[i][j]))
-					file->c_flag = 1;
+				if (!file->c_flag && is_dir_flag(file->map[y][x]))
+				{
+					file->c_x = x;
+					file->c_y = y;
+					file->c_flag = file->map[y][x];
+				}
 				else
 					error_out("Error\ninvalid map");
 			}
-			check_surround(file, i , j);
+			check_surround(file, x , y);
 		}
 	}
+}
+
+
+//check
+void	check_info(t_file *file)
+{
+	int i;
+
+	i = -1;
+	while (++i < 6)
+	{
+		if (file->split[i] == NULL)
+			error_out("Error\ninvalid file");
+		if (ft_strncmp(file->split[i], "NO ", 3) == 0)
+			file->info[NO] = file->split[i];
+		else if (ft_strncmp(file->split[i], "SO ", 3) == 0)
+			file->info[SO] = file->split[i];
+		else if (ft_strncmp(file->split[i], "WE ", 3) == 0)
+			file->info[WE] = file->split[i];
+		else if (ft_strncmp(file->split[i], "EA ", 3) == 0)
+			file->info[EA] = file->split[i];
+		else if (ft_strncmp(file->split[i], "F ", 2) == 0)
+			file->info[F] = file->split[i];
+		else if (ft_strncmp(file->split[i], "C ", 2) == 0)
+			file->info[C] = file->split[i];
+	}
+	while (--i >= 0)
+	{
+		if (!file->info[i])
+			error_out("Error\ninvalid file");
+	}
+}
+
+void	check_file(t_file *file, char *path)
+{
+	char	*str;
+
+	init_file(file);
+	str = read_file(path);
+	file->split = ft_split(str, '\n');
+	free(str);
+	if (!file->split)
+		error_out("Error\nsplit error");
+	check_info(file);
+	check_map(file);
 	if (!file->c_flag)
 		error_out("Error\ninvalid map");
+}
+
+
+//set_dir_plane
+void	set_dir_plane_n(t_game *game)
+{
+	game->dir_x = -1;
+	game->dir_y = 0;
+	game->plane_x = 0;
+	game->plane_y = 0.66;
+}
+
+void	set_dir_plane_s(t_game *game)
+{
+	game->dir_x = 1;
+	game->dir_y = 0;
+	game->plane_x = 0;
+	game->plane_y = -0.66;
+}
+
+void	set_dir_plane_w(t_game *game)
+{
+	game->dir_x = 0;
+	game->dir_y = 1;
+	game->plane_x = 0.66;
+	game->plane_y = 0;
+}
+
+void	set_dir_plane_e(t_game *game)
+{
+	game->dir_x = 0;
+	game->dir_y = -1;
+	game->plane_x = -0.66;
+	game->plane_y = 0;
 }
 
 
@@ -639,22 +696,26 @@ void	make_game(t_game *game, t_file file)
 	init_game(game);
 	parse_info(game, file);
 	game->map = file.map;
-	game->map_w = file.map_w;
-	game->map_h = file.map_h;
+	game->pos_x = file.c_x + 0.5;
+	game->pos_y = file.c_y + 0.5;
+	if (file.c_flag == 'N')
+		set_dir_plane_n(game);
+	if (file.c_flag == 'S')
+		set_dir_plane_s(game);
+	if (file.c_flag == 'W')
+		set_dir_plane_w(game);
+	if (file.c_flag == 'E')
+		set_dir_plane_e(game);
 }
+
+
+//key
+
+
+//raycasting
 
 
 //main
-void	check_file(t_file *file, char *path)
-{
-	init_file(file);
-	file->str = read_file(path);
-	file->split = ft_split(file->str, '\n');
-	if (!file->split)
-		error_out("Error\nsplit error");
-	check_info(file);
-	check_map(file);
-}
 
 int main(int ac, char *av[])
 {
