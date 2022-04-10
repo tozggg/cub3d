@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:49:34 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/10 17:25:22 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/10 17:29:11 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -756,7 +756,7 @@ void	cal_color(t_dda *dda, t_game *game, int x)
 	{
 		dda->tex_y = (int)dda->texPos & (TEX_SIZE - 1);
 		dda->texPos += dda->step;
-		dda->color = game->texture[dda->texnum][TEX_SIZE * dda->tex_y + dda->tex_x];
+		dda->color = game->texture[dda->texnum][TEX_SIZE * dda->tex_x + dda->tex_y];
 		if (dda->side == 2 || dda->side == 3)
 			dda->color = (dda->color >> 1) & 8355711;
 		game->buf[dda->index_y][x] = dda->color;
