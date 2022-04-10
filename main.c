@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:49:34 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/10 18:53:46 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/10 20:00:18 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include <sys/types.h>
 #include <math.h>
 
-#define HEIGHT 960
-#define WIDTH 640
+#define HEIGHT 640
+#define WIDTH 960
 #define TEX_SIZE 64
 
 #define X_EVENT_KEY_PRESS 2
@@ -441,8 +441,8 @@ void	init_game(t_game *game)
 	game->img.data = (int *)mlx_get_data_addr(game->img.img, &game->img.bpp, \
 										&game->img.size_l, &game->img.endian);
 	game->buf = init_buf();
-	game->movespeed = 0.05;
-	game->rotspeed = 0.05;
+	game->movespeed = 0.04;
+	game->rotspeed = 0.04;
 }
 
 //check_map
@@ -778,10 +778,10 @@ void	move_front(t_game *game)
 
 	move_x = game->pos_x + (game->dir_x * game->movespeed);
 	move_y = game->pos_y + (game->dir_y * game->movespeed);
-	if (game->map[(int)move_x][(int)move_y] == '1')
-		return ;
-	game->pos_x = move_x;
-	game->pos_y = move_y;
+	if (game->map[(int)move_y][(int)game->pos_x] != '1')
+		game->pos_y = move_y;
+	if (game->map[(int)game->pos_y][(int)move_x] != '1')
+		game->pos_x = move_x;
 }
 
 void	move_back(t_game *game)
@@ -791,10 +791,10 @@ void	move_back(t_game *game)
 
 	move_x = game->pos_x - (game->dir_x * game->movespeed);
 	move_y = game->pos_y - (game->dir_y * game->movespeed);
-	if (game->map[(int)move_x][(int)move_y] == '1')
-		return ;
-	game->pos_x = move_x;
-	game->pos_y = move_y;
+	if (game->map[(int)move_y][(int)game->pos_x] != '1')
+		game->pos_y = move_y;
+	if (game->map[(int)game->pos_y][(int)move_x] != '1')
+		game->pos_x = move_x;
 }
 
 void	move_left(t_game *game)
@@ -804,10 +804,10 @@ void	move_left(t_game *game)
 
 	move_x = game->pos_x - (game->plane_x * game->movespeed);
 	move_y = game->pos_y - (game->plane_y * game->movespeed);
-	if (game->map[(int)move_x][(int)move_y] == '1')
-		return ;
-	game->pos_x = move_x;
-	game->pos_y = move_y;
+	if (game->map[(int)move_y][(int)game->pos_x] != '1')
+		game->pos_y = move_y;
+	if (game->map[(int)game->pos_y][(int)move_x] != '1')
+		game->pos_x = move_x;
 }
 
 void	move_right(t_game *game)
@@ -817,10 +817,10 @@ void	move_right(t_game *game)
 
 	move_x = game->pos_x + (game->plane_x * game->movespeed);
 	move_y = game->pos_y + (game->plane_y * game->movespeed);
-	if (game->map[(int)move_x][(int)move_y] == '1')
-		return ;
-	game->pos_x = move_x;
-	game->pos_y = move_y;
+	if (game->map[(int)move_y][(int)game->pos_x] != '1')
+		game->pos_y = move_y;
+	if (game->map[(int)game->pos_y][(int)move_x] != '1')
+		game->pos_x = move_x;
 }
 
 //raycasting
@@ -855,24 +855,24 @@ void	cal_color(t_dda *dda, t_game *game, int x)
 void	tex_input(t_dda *dda, t_game *game)
 {
 	if (dda->side == 0 || dda->side == 1)
-		dda->perpwallDist = (dda->map_x - game->pos_x + (1 - dda->step_x) / 2) * dda->rayDir_x;
+		dda->perpwallDist = (dda->map_x - game->pos_x + (1 - dda->step_x) / 2) / dda->rayDir_x;
 	else
-		dda->perpwallDist = (dda->map_y - game->pos_y + (1 - dda->step_y) / 2) * dda->rayDir_y;
-	dda->lineheight = (int)(HEIGHT * 0.7 / dda->perpwallDist);
+		dda->perpwallDist = (dda->map_y - game->pos_y + (1 - dda->step_y) / 2) / dda->rayDir_y;
+	dda->lineheight = (int)((HEIGHT / 2) / dda->perpwallDist);
 	dda->drawstart = HEIGHT / 2 - dda->lineheight / 2;
 	if (dda->drawstart < 0)
 		dda->drawstart = 0; // target이 근접했을때 window 밖으로 target이 넘어가 시야 밖으로 갈때 처리
 	dda->drawend = HEIGHT / 2 + dda->lineheight / 2;
 	if (dda->drawend >= HEIGHT)
 		dda->drawend = HEIGHT - 1;
-	if (game->map[dda->map_x][dda->map_y] == '1' && dda->side == 0)
+	if (game->map[dda->map_y][dda->map_x] == '1' && dda->side == 0)
 		dda->texnum = WE; // 왼
-	else if (game->map[dda->map_x][dda->map_y] == '1' && dda->side == 1)
+	else if (game->map[dda->map_y][dda->map_x] == '1' && dda->side == 1)
 		dda->texnum = EA; // 오
-	else if (game->map[dda->map_x][dda->map_y] == '1' && dda->side == 2)
-		dda->texnum = SO; // 아래
-	else if (game->map[dda->map_x][dda->map_y] == '1' && dda->side == 3)
-		dda->texnum = NO; // 위
+	else if (game->map[dda->map_y][dda->map_x] == '1' && dda->side == 2)
+		dda->texnum = NO; // 아래
+	else if (game->map[dda->map_y][dda->map_x] == '1' && dda->side == 3)
+		dda->texnum = SO; // 위
 }
 
 void	hit_check(t_dda *dda, t_game *game)
@@ -897,7 +897,7 @@ void	hit_check(t_dda *dda, t_game *game)
 			else if (dda->step_y == -1)
 				dda->side = 3; // 위
 		}
-		if (game->map[dda->map_x][dda->map_y] == '1')
+		if (game->map[dda->map_y][dda->map_x] == '1')
 			dda->hit = 1;
 	}
 }
@@ -1002,7 +1002,6 @@ void	background(t_game *game)
 				game->buf[y][x] = game->ceiling;
 			else
 				game->buf[y][x] = game->floor;
-			x++;
 		}
 	}
 }
