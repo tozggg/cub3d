@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:49:34 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/10 17:48:44 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/10 18:17:38 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./minilibx/mlx.h"
+#include "./mlx/mlx.h"
 
 #include <unistd.h>
 #include <stdlib.h>
@@ -33,8 +33,6 @@
 #define KEY_D 2
 #define KEY_LEFT 123
 #define KEY_RIGHT 124
-#define KEY_UP 126
-#define KEY_DOWN 125
 #define KEY_ESC 53
 
 #define NO 0
@@ -98,6 +96,9 @@ typedef struct	s_game
 	double	movespeed;
 	double	rotspeed;
 }	t_game;
+
+int	close_game(t_game *game);
+
 
 
 // libft //////////////////////////////////////////////////////////
@@ -306,7 +307,6 @@ int		ft_isdigit(int c)
 		return (1);
 	return (0);
 }
-
 ///////////////////////////////////////////////////////////////////
 
 //utils
@@ -599,34 +599,34 @@ void	check_file(t_file *file, char *path)
 //set_dir_plane
 void	set_dir_plane_n(t_game *game)
 {
-	game->dir_x = -1;
-	game->dir_y = 0;
-	game->plane_x = 0;
-	game->plane_y = 0.66;
-}
-
-void	set_dir_plane_s(t_game *game)
-{
-	game->dir_x = 1;
-	game->dir_y = 0;
-	game->plane_x = 0;
-	game->plane_y = -0.66;
-}
-
-void	set_dir_plane_w(t_game *game)
-{
 	game->dir_x = 0;
 	game->dir_y = 1;
 	game->plane_x = 0.66;
 	game->plane_y = 0;
 }
 
-void	set_dir_plane_e(t_game *game)
+void	set_dir_plane_s(t_game *game)
 {
 	game->dir_x = 0;
 	game->dir_y = -1;
 	game->plane_x = -0.66;
 	game->plane_y = 0;
+}
+
+void	set_dir_plane_w(t_game *game)
+{
+	game->dir_x = -1;
+	game->dir_y = 0;
+	game->plane_x = 0;
+	game->plane_y = 0.66;
+}
+
+void	set_dir_plane_e(t_game *game)
+{
+	game->dir_x = 1;
+	game->dir_y = 0;
+	game->plane_x = 0;
+	game->plane_y = -0.66;
 }
 
 
@@ -647,7 +647,7 @@ int	*load_texture(t_game *game, char *path, t_img *img)
 	{
 		x = -1;
 		while (++x < TEX_SIZE)
-			res[y * TEX_SIZE + x] = img->data[y * TEX_SIZE + x];
+			res[y * TEX_SIZE + x] = img->data[x * TEX_SIZE + y];
 	}
 	mlx_destroy_image(game->mlx, img->img);
 	return (res);
@@ -705,6 +705,41 @@ void	make_game(t_game *game, t_file file)
 
 
 //key
+int	key_press(int keycode, t_game *game)
+{
+	if (keycode == KEY_ESC)
+		close_game(game);
+	else if (keycode == KEY_W)
+		game->key.w = 1;
+	else if (keycode == KEY_A)
+		game->key.a = 1;
+	else if (keycode == KEY_S)
+		game->key.s = 1;
+	else if (keycode == KEY_D)
+		game->key.d = 1;
+	else if (keycode == KEY_LEFT)
+		game->key.left = 1;
+	else if (keycode == KEY_RIGHT)
+		game->key.right = 1;
+	return (0);
+}
+
+int key_release(int keycode, t_game *game)
+{
+	if (keycode == KEY_W)
+		game->key.w = 0;
+	else if (keycode == KEY_A)
+		game->key.a = 0;
+	else if (keycode == KEY_S)
+		game->key.s = 0;
+	else if (keycode == KEY_D)
+		game->key.d = 0;
+	else if (keycode == KEY_LEFT)
+		game->key.left = 0;
+	else if (keycode == KEY_RIGHT)
+		game->key.right = 0;
+	return (0);
+}
 
 typedef struct	s_dda
 {
@@ -734,6 +769,58 @@ typedef struct	s_dda
 	double	sideDist_y;
 	double	perpwallDist;
 }	t_dda;
+//move
+void	move_front(t_game *game)
+{
+	double	move_x;
+	double	move_y;
+
+	move_x = game->pos_x + (game->dir_x * game->movespeed);
+	move_y = game->pos_y + (game->dir_y * game->movespeed);
+	if (game->map[(int)move_x][(int)move_y] == '1')
+		return ;
+	game->pos_x = move_x;
+	game->pos_y = move_y;
+}
+
+void	move_back(t_game *game)
+{
+	double	move_x;
+	double	move_y;
+
+	move_x = game->pos_x - (game->dir_x * game->movespeed);
+	move_y = game->pos_y - (game->dir_y * game->movespeed);
+	if (game->map[(int)move_x][(int)move_y] == '1')
+		return ;
+	game->pos_x = move_x;
+	game->pos_y = move_y;
+}
+
+void	move_left(t_game *game)
+{
+	double	move_x;
+	double	move_y;
+
+	move_x = game->pos_x - (game->plane_x * game->movespeed);
+	move_y = game->pos_y - (game->plane_y * game->movespeed);
+	if (game->map[(int)move_x][(int)move_y] == '1')
+		return ;
+	game->pos_x = move_x;
+	game->pos_y = move_y;
+}
+
+void	move_right(t_game *game)
+{
+	double	move_x;
+	double	move_y;
+
+	move_x = game->pos_x + (game->plane_x * game->movespeed);
+	move_y = game->pos_y + (game->plane_y * game->movespeed);
+	if (game->map[(int)move_x][(int)move_y] == '1')
+		return ;
+	game->pos_x = move_x;
+	game->pos_y = move_y;
+}
 
 //raycasting
 
@@ -857,7 +944,7 @@ void	raycasting(t_game *game)
 		cal_sideDist(&dda, game);
 		hit_check(&dda, game);
 		tex_input(&dda, game);
-		cal_color(game, &dda, x);
+		cal_color(&dda, game, x);
 	}
 }
 
@@ -897,7 +984,75 @@ void	rotate_right(t_game *game)
 	game->plane_y = p_x * sin(-(game->rotspeed)) + p_y * cos(-(game->rotspeed));
 }
 
+
+//game
+void	background(t_game *game)
+{
+	int x;
+	int	y;
+
+	y = -1;
+	while (++y < HEIGHT)
+	{
+		x = -1;
+		while (++x < WIDTH)
+		{
+			if (y < HEIGHT / 2)
+				game->buf[y][x] = game->ceiling;
+			else
+				game->buf[y][x] = game->floor;
+			x++;
+		}
+	}
+}
+
+void	display(t_game *game)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (++y < HEIGHT)
+	{
+		x = -1;
+		while (++x < WIDTH)
+			game->img.data[y * WIDTH + x] = game->buf[y][x];
+	}
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+}
+
+void	update_game(t_game *game)
+{
+	if (game->key.w)
+		move_front(game);
+	if (game->key.a)
+		move_left(game);
+	if (game->key.s)
+		move_back(game);
+	if (game->key.d)
+		move_right(game);
+	if (game->key.left)
+		rotate_left(game);
+	if (game->key.right)
+		rotate_right(game);
+}
+
 //main
+int	close_game(t_game *game)
+{
+	mlx_destroy_window(game->mlx, game->win);
+	exit(0);
+	return (0);
+}
+
+int	loop(t_game *game)
+{
+	background(game);
+	raycasting(game);
+	display(game);
+	update_game(game);
+	return (0);
+}
 
 int main(int ac, char *av[])
 {
@@ -908,7 +1063,10 @@ int main(int ac, char *av[])
 		error_out("Error\nusage: ./cub3d [map.cub]");
 	check_file(&file, av[1]);
 	make_game(&game, file);
-
-
+	mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, &close_game, &game);
+	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
+	mlx_hook(game.win, X_EVENT_KEY_RELEASE, 0, &key_release, &game);
+	mlx_loop_hook(game.mlx, &loop, &game);
+	mlx_loop(game.mlx);
 	return (0);
 }
