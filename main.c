@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:49:34 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/10 17:29:11 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/10 17:48:44 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -770,7 +770,7 @@ void	tex_input(t_dda *dda, t_game *game)
 		dda->perpwallDist = (dda->map_x - game->pos_x + (1 - dda->step_x) / 2) * dda->rayDir_x;
 	else
 		dda->perpwallDist = (dda->map_y - game->pos_y + (1 - dda->step_y) / 2) * dda->rayDir_y;
-	dda->lineheight = (int)(HEIGHT / dda->perpwallDist);
+	dda->lineheight = (int)(HEIGHT * 0.7 / dda->perpwallDist);
 	dda->drawstart = HEIGHT / 2 - dda->lineheight / 2;
 	if (dda->drawstart < 0)
 		dda->drawstart = 0; // target이 근접했을때 window 밖으로 target이 넘어가 시야 밖으로 갈때 처리
@@ -859,6 +859,42 @@ void	raycasting(t_game *game)
 		tex_input(&dda, game);
 		cal_color(game, &dda, x);
 	}
+}
+
+// rot matrix
+
+void	rotate_left(t_game *game)
+{
+	double	x;
+	double	y;
+	double	p_x;
+	double	p_y;
+
+	x = game->dir_x;
+	y = game->dir_y;
+	p_x = game->plane_x;
+	p_y = game->plane_y;
+	game->dir_x = x * cos(game->rotspeed) - y * sin(game->rotspeed);
+	game->dir_y = x * sin(game->rotspeed) + y * cos(game->rotspeed);
+	game->plane_x = p_x * cos(game->rotspeed) - p_y * sin(game->rotspeed);
+	game->plane_y = p_x * sin(game->rotspeed) + p_y * cos(game->rotspeed);
+}
+
+void	rotate_right(t_game *game)
+{
+	double	x;
+	double	y;
+	double	p_x;
+	double	p_y;
+
+	x = game->dir_x;
+	y = game->dir_y;
+	p_x = game->plane_x;
+	p_y = game->plane_y;
+	game->dir_x = x * cos(-(game->rotspeed)) - y * sin(-(game->rotspeed));
+	game->dir_y = x * sin(-(game->rotspeed)) + y * cos(-(game->rotspeed));
+	game->plane_x = p_x * cos(-(game->rotspeed)) - p_y * sin(-(game->rotspeed));
+	game->plane_y = p_x * sin(-(game->rotspeed)) + p_y * cos(-(game->rotspeed));
 }
 
 //main
