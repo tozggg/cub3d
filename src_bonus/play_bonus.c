@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   play_bous.c                                        :+:      :+:    :+:   */
+/*   play_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:26:15 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:43:24 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/11 17:58:59 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	mouse_move(int x, int y, t_game *game)
 	static int	x_prev;
 	int			v;
 
+	(void)y;
 	if (game->key.mouse_on == 1)
 		return (0);
 	v = x - x_prev;

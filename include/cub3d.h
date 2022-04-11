@@ -3,46 +3,50 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:16:07 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:42:44 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/11 17:58:14 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mlx/mlx.h"
+#ifndef CUB3D_H
+# define CUB3D_H
 
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <math.h>
+# include "../libft/libft.h"
+# include "../mlx/mlx.h"
 
-#define HEIGHT 640
-#define WIDTH 960
-#define TEX_SIZE 128
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <math.h>
 
-#define X_EVENT_KEY_PRESS 2
-#define X_EVENT_KEY_RELEASE 3
-#define X_EVENT_KEY_EXIT 17
-#define X_EVENT_MOUSE_MOVE 6
+# define HEIGHT 640
+# define WIDTH 960
+# define TEX_SIZE 128
 
-#define KEY_W 13
-#define KEY_A 0
-#define KEY_S 1
-#define KEY_D 2
-#define KEY_LEFT 123
-#define KEY_RIGHT 124
-#define KEY_ESC 53
-#define MOUSE_ON 35
+# define X_EVENT_KEY_PRESS 2
+# define X_EVENT_KEY_RELEASE 3
+# define X_EVENT_KEY_EXIT 17
+# define X_EVENT_MOUSE_MOVE 6
 
-#define NO 0
-#define SO 1
-#define WE 2
-#define EA 3
-#define F 4
-#define C 5
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
+# define KEY_ESC 53
+# define MOUSE_ON 35
+
+# define NO 0
+# define SO 1
+# define WE 2
+# define EA 3
+# define F 4
+# define C 5
 
 
 typedef struct	s_file
@@ -175,3 +179,8 @@ void	background(t_game *game);
 void	display(t_game *game);
 void	update_game(t_game *game);
 int		mouse_move(int x, int y, t_game *game);
+
+// main.c
+int		close_game(t_game *game);
+
+#endif
