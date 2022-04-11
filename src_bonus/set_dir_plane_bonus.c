@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_dir_plane.c                                    :+:      :+:    :+:   */
+/*   set_dir_plane_bous.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:20:12 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:20:22 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/11 17:43:32 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/cub3d.h"
+#include "../include/cub3d_bonus.h"
 
 void	set_dir_plane_n(t_game *game)
 {
