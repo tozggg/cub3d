@@ -1,7 +1,7 @@
-NO ./textures/brown.xpm
-SO ./textures/cream.xpm
-WE ./textures/orange.xpm
-EA ./textures/maroon.xpm
+NO ./textures/sky.xpm
+SO ./textures/black.xpm
+WE ./textures/pink.xpm
+EA ./textures/white.xpm
 
 F 0,0,0
 C 255,255,255
