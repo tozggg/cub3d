@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:49:34 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/10 20:00:18 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/11 17:01:40 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #define X_EVENT_KEY_PRESS 2
 #define X_EVENT_KEY_RELEASE 3
 #define X_EVENT_KEY_EXIT 17
+#define X_EVENT_MOUSE_MOVE 6
 
 #define KEY_W 13
 #define KEY_A 0
@@ -34,6 +35,7 @@
 #define KEY_LEFT 123
 #define KEY_RIGHT 124
 #define KEY_ESC 53
+#define MOUSE_ON 35
 
 #define NO 0
 #define SO 1
@@ -63,6 +65,7 @@ typedef struct	s_key
 	int		d;
 	int		left;
 	int		right;
+	int		mouse_on;
 }	t_key;
 
 typedef struct	s_img
@@ -437,6 +440,7 @@ void	init_game(t_game *game)
 	game->key.d = 0;
 	game->key.left = 0;
 	game->key.right = 0;
+	game->key.mouse_on = 0;
 	game->img.img = mlx_new_image(game->mlx, WIDTH, HEIGHT);
 	game->img.data = (int *)mlx_get_data_addr(game->img.img, &game->img.bpp, \
 										&game->img.size_l, &game->img.endian);
@@ -702,6 +706,7 @@ void	make_game(t_game *game, t_file file)
 	if (file.c_flag == 'E')
 		set_dir_plane_e(game);
 	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
+	mlx_mouse_hide();
 }
 
 
@@ -722,6 +727,16 @@ int	key_press(int keycode, t_game *game)
 		game->key.left = 1;
 	else if (keycode == KEY_RIGHT)
 		game->key.right = 1;
+	else if (keycode == MOUSE_ON && game->key.mouse_on == 0)
+	{
+		game->key.mouse_on = 1;
+		mlx_mouse_show();
+	}
+	else if (keycode == MOUSE_ON && game->key.mouse_on == 1)
+	{
+		game->key.mouse_on = 0;
+		mlx_mouse_hide();
+	}
 	return (0);
 }
 
@@ -1054,6 +1069,27 @@ int	loop(t_game *game)
 	return (0);
 }
 
+int	mouse_move(int x, int y, t_game *game)
+{
+	static int	x_prev;
+	int			v;
+
+	if (game->key.mouse_on == 1)
+		return (0);
+	v = x - x_prev;
+	x_prev = x;
+	if (v < 0)
+		rotate_left(game);
+	if (v > 0)
+		rotate_right(game);
+	if (x > WIDTH - 1 || x < 0)
+	{
+		mlx_mouse_move(game->win, WIDTH / 2, HEIGHT / 2);
+		x_prev = WIDTH / 2;
+	}
+	return (0);
+}
+
 int main(int ac, char *av[])
 {
 	t_file	file;
@@ -1066,6 +1102,7 @@ int main(int ac, char *av[])
 	mlx_hook(game.win, X_EVENT_KEY_EXIT, 0, &close_game, &game);
 	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_hook(game.win, X_EVENT_KEY_RELEASE, 0, &key_release, &game);
+	mlx_hook(game.win, X_EVENT_MOUSE_MOVE, 0, &mouse_move, &game);
 	mlx_loop_hook(game.mlx, &loop, &game);
 	mlx_loop(game.mlx);
 	return (0);
