@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:21:17 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:36:01 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 02:09:01 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	tex_input(t_dda *dda, t_game *game)
 		dda->perpwallDist = (dda->map_x - game->pos_x + (1 - dda->step_x) / 2) / dda->rayDir_x;
 	else
 		dda->perpwallDist = (dda->map_y - game->pos_y + (1 - dda->step_y) / 2) / dda->rayDir_y;
-	dda->lineheight = (int)((HEIGHT / 2) / dda->perpwallDist);
+	dda->lineheight = (int)((HEIGHT) / dda->perpwallDist);
 	dda->drawstart = HEIGHT / 2 - dda->lineheight / 2;
 	if (dda->drawstart < 0)
 		dda->drawstart = 0; // target이 근접했을때 window 밖으로 target이 넘어가 시야 밖으로 갈때 처리

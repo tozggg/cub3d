@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:49:34 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:39:20 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/12 21:12:53 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	loop(t_game *game)
 {
 	background(game);
 	raycasting(game);
+	minimap(game);
 	display(game);
 	update_game(game);
 	return (0);

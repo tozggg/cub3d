@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:20:42 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:35:18 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/12 21:48:05 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	make_game(t_game *game, t_file file)
 	init_game(game);
 	parse_info(game, file);
 	game->map = file.map;
+	game->map_w = file.map_w;
+	game->map_h = file.map_h;
 	game->pos_x = file.c_x + 0.5;
 	game->pos_y = file.c_y + 0.5;
 	if (file.c_flag == 'N')

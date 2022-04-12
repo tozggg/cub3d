@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:22:50 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:31:13 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 00:57:41 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	rotate_left(t_game *game)
 	y = game->dir_y;
 	p_x = game->plane_x;
 	p_y = game->plane_y;
-	game->dir_x = x * cos(game->rotspeed) - y * sin(game->rotspeed);
-	game->dir_y = x * sin(game->rotspeed) + y * cos(game->rotspeed);
-	game->plane_x = p_x * cos(game->rotspeed) - p_y * sin(game->rotspeed);
-	game->plane_y = p_x * sin(game->rotspeed) + p_y * cos(game->rotspeed);
+	game->dir_x = x * cos(-(game->rotspeed)) - y * sin(-(game->rotspeed));
+	game->dir_y = x * sin(-(game->rotspeed)) + y * cos(-(game->rotspeed));
+	game->plane_x = p_x * cos(-(game->rotspeed)) - p_y * sin(-(game->rotspeed));
+	game->plane_y = p_x * sin(-(game->rotspeed)) + p_y * cos(-(game->rotspeed));
 }
 
 void	rotate_right(t_game *game)
@@ -40,10 +40,10 @@ void	rotate_right(t_game *game)
 	y = game->dir_y;
 	p_x = game->plane_x;
 	p_y = game->plane_y;
-	game->dir_x = x * cos(-(game->rotspeed)) - y * sin(-(game->rotspeed));
-	game->dir_y = x * sin(-(game->rotspeed)) + y * cos(-(game->rotspeed));
-	game->plane_x = p_x * cos(-(game->rotspeed)) - p_y * sin(-(game->rotspeed));
-	game->plane_y = p_x * sin(-(game->rotspeed)) + p_y * cos(-(game->rotspeed));
+	game->dir_x = x * cos(game->rotspeed) - y * sin(game->rotspeed);
+	game->dir_y = x * sin(game->rotspeed) + y * cos(game->rotspeed);
+	game->plane_x = p_x * cos(game->rotspeed) - p_y * sin(game->rotspeed);
+	game->plane_y = p_x * sin(game->rotspeed) + p_y * cos(game->rotspeed);
 }
 
 int	key_press(int keycode, t_game *game)

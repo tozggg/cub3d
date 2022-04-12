@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:16:07 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:58:14 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/12 21:47:42 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ typedef struct	s_game
 	int		ceiling;
 	int		floor;
 	char	**map;
+	int		map_w;
+	int		map_h;
 	double	pos_x;
 	double	pos_y;
 	double	dir_x;
@@ -173,6 +175,9 @@ void	rotate_left(t_game *game);
 void	rotate_right(t_game *game);
 int		key_press(int keycode, t_game *game);
 int		key_release(int keycode, t_game *game);
+
+// minimap.c
+void	minimap(t_game *game);
 
 // play.c
 void	background(t_game *game);
