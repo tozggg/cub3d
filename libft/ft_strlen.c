@@ -6,15 +6,15 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 17:06:11 by taejkim           #+#    #+#             */
-/*   Updated: 2020/12/26 17:26:55 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 15:30:26 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (s[i])

@@ -6,15 +6,17 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:19:04 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/13 00:50:50 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 15:48:28 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-static int	is_dir_flag(char c)
+static int	is_character(char c, int flag)
 {
-	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+	if (flag == 1 && !(c == '1' || c == '0' || c == ' '))
+		return (1);
+	if (flag == 2 && (c == 'N' || c == 'S' || c == 'W' || c == 'E'))
 		return (1);
 	return (0);
 }
@@ -67,7 +69,7 @@ static void	check_surround(t_file *file, int x, int y)
 {
 	if ((x == 0 || x == file->map_w - 1 || y == 0 || y == file->map_h - 1) \
 		&& !(file->map[y][x] == '1' || file->map[y][x] == ' '))
-			error_out("Error\ninvalid map");
+		error_out("Error\ninvalid map");
 	if (file->map[y][x] == ' ')
 	{
 		if (x != 0 && !(file->map[y][x - 1] == '1' \
@@ -87,8 +89,8 @@ static void	check_surround(t_file *file, int x, int y)
 
 void	check_map(t_file *file)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	scan_map(file);
 	append_map(file);
@@ -98,9 +100,9 @@ void	check_map(t_file *file)
 		x = -1;
 		while (file->map[y][++x])
 		{
-			if (!(file->map[y][x] == '1' || file->map[y][x] == '0' || file->map[y][x] == ' '))
+			if (is_character(file->map[y][x], 1))
 			{
-				if (!file->c_flag && is_dir_flag(file->map[y][x]))
+				if (!file->c_flag && is_character(file->map[y][x], 2))
 				{
 					file->c_x = x;
 					file->c_y = y;

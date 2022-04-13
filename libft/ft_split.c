@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 19:36:51 by taejkim           #+#    #+#             */
-/*   Updated: 2021/01/16 15:40:24 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 15:31:05 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int	get_size(char const *s, char c)
 {
-	int res;
-	int check;
-	int i;
+	int	res;
+	int	check;
+	int	i;
 
 	res = 0;
 	check = 0;
@@ -63,9 +63,9 @@ static char	*get_ptr_child(char const *s, char c, int i)
 
 static void	get_ptr(char **ptr, char const *s, char c)
 {
-	int index;
-	int check;
-	int i;
+	int	index;
+	int	check;
+	int	i;
 
 	index = 0;
 	check = 0;
@@ -87,7 +87,7 @@ static void	get_ptr(char **ptr, char const *s, char c)
 
 static void	free_ptr(char **ptr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (ptr[i])
@@ -98,7 +98,7 @@ static void	free_ptr(char **ptr)
 	free(ptr);
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	char	**ptr;
 	int		size;
