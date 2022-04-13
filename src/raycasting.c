@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:21:17 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/13 16:08:16 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/13 17:28:58 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	cal_color(t_dda *dda, t_game *game, int x)
 	if (dda->side == 1 && dda->raydir_y < 0)
 		dda->tex_x = TEX_SIZE - dda->tex_x - 1;
 	dda->step = TEX_SIZE * 1.0 / dda->lineheight;
-	dda->texpos = ((dda->drawstart - HEIGHT / 2)
-			+ (dda->lineheight / 2)) * dda->step;
+	dda->texpos = (dda->drawstart
+			- (HEIGHT / 2 - dda->lineheight / 2)) * dda->step;
 	dda->index_y = dda->drawstart;
 	while (dda->index_y < dda->drawend)
 	{
