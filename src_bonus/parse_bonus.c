@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:20:42 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/13 16:52:12 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 22:29:01 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static int	*load_texture(t_game *game, char *path, t_img *img)
 	img->data = (int *)mlx_get_data_addr(img->img,
 			&img->bpp, &img->size_l, &img->endian);
 	res = (int *)malloc(sizeof(int) * (TEX_SIZE * TEX_SIZE));
+	if (!res)
+		error_out("Error\nmalloc error");
 	y = -1;
 	while (++y < TEX_SIZE)
 	{

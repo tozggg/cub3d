@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:19:04 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/13 16:13:51 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 22:28:33 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,14 @@ static void	append_map(t_file *file)
 	int	j;
 
 	file->map = (char **)malloc(sizeof(char *) * (file->map_h + 1));
+	if (!file->map)
+		error_out("Error\nmalloc error");
 	i = 0;
 	while (i < file->map_h)
 	{
 		file->map[i] = (char *)ft_calloc(file->map_w + 1, sizeof(char));
+		if (!file->map[i])
+			error_out("Error\nmalloc error");
 		j = 0;
 		while (file->split[i + 6][j])
 		{
