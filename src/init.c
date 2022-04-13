@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:18:20 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:34:21 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 15:41:41 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_file(t_file *file)
 {
-	int i;
+	int	i;
 
 	file->split = NULL;
 	i = 0;

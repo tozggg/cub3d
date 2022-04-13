@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:13:50 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:39:36 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 15:40:57 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*cut_path(char *str, char *cut)
 
 int	cut_rgb(char *str)
 {
-	int res;
+	int	res;
 
 	if (!ft_isdigit(*str))
 		return (-1);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycasting_bous.c                                  :+:      :+:    :+:   */
+/*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:21:17 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:43:29 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/13 15:58:41 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static void	cal_color(t_dda *dda, t_game *game, int x)
 	if (dda->side == 1 && dda->rayDir_y < 0)
 		dda->tex_x = TEX_SIZE - dda->tex_x - 1;
 	dda->step = TEX_SIZE * 1.0 / dda->lineheight;
-	dda->texPos = (dda->drawstart - HEIGHT / 2 + dda->lineheight / 2) * dda->step;
+	dda->texPos = ((dda->drawstart - HEIGHT)
+			/ (2 + dda->lineheight / 2)) * dda->step;
 	dda->index_y = dda->drawstart;
 	while (dda->index_y < dda->drawend)
 	{
@@ -40,24 +41,26 @@ static void	cal_color(t_dda *dda, t_game *game, int x)
 static void	tex_input(t_dda *dda, t_game *game)
 {
 	if (dda->side == 0 || dda->side == 1)
-		dda->perpwallDist = (dda->map_x - game->pos_x + (1 - dda->step_x) / 2) / dda->rayDir_x;
+		dda->perpwallDist = (dda->map_x - game->pos_x
+				+ ((1 - dda->step_x) / 2)) / dda->rayDir_x;
 	else
-		dda->perpwallDist = (dda->map_y - game->pos_y + (1 - dda->step_y) / 2) / dda->rayDir_y;
+		dda->perpwallDist = (dda->map_y - game->pos_y
+				+ ((1 - dda->step_y) / 2)) / dda->rayDir_y;
 	dda->lineheight = (int)((HEIGHT / 2) / dda->perpwallDist);
 	dda->drawstart = HEIGHT / 2 - dda->lineheight / 2;
 	if (dda->drawstart < 0)
-		dda->drawstart = 0; // target이 근접했을때 window 밖으로 target이 넘어가 시야 밖으로 갈때 처리
+		dda->drawstart = 0;
 	dda->drawend = HEIGHT / 2 + dda->lineheight / 2;
 	if (dda->drawend >= HEIGHT)
 		dda->drawend = HEIGHT - 1;
 	if (game->map[dda->map_y][dda->map_x] == '1' && dda->side == 0)
-		dda->texnum = WE; // 왼
+		dda->texnum = WE;
 	else if (game->map[dda->map_y][dda->map_x] == '1' && dda->side == 1)
-		dda->texnum = EA; // 오
+		dda->texnum = EA;
 	else if (game->map[dda->map_y][dda->map_x] == '1' && dda->side == 2)
-		dda->texnum = NO; // 아래
+		dda->texnum = NO;
 	else if (game->map[dda->map_y][dda->map_x] == '1' && dda->side == 3)
-		dda->texnum = SO; // 위
+		dda->texnum = SO;
 }
 
 static void	hit_check(t_dda *dda, t_game *game)
@@ -71,23 +74,23 @@ static void	hit_check(t_dda *dda, t_game *game)
 			if (dda->step_x == 1)
 				dda->side = 0;
 			else if (dda->step_x == -1)
-				dda->side = 1; // 오른쪽
+				dda->side = 1;
 		}
 		else
 		{
 			dda->sideDist_y += dda->deltaDist_y;
 			dda->map_y += dda->step_y;
 			if (dda->step_y == 1)
-				dda->side = 2; // 아래
+				dda->side = 2;
 			else if (dda->step_y == -1)
-				dda->side = 3; // 위
+				dda->side = 3;
 		}
 		if (game->map[dda->map_y][dda->map_x] == '1')
 			dda->hit = 1;
 	}
 }
 
-static void	cal_sideDist(t_dda *dda, t_game *game)
+static void	cal_sidedist(t_dda *dda, t_game *game)
 {
 	if (dda->rayDir_x < 0)
 	{

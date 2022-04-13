@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_bous.c                                         :+:      :+:    :+:   */
+/*   key_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:22:50 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:43:09 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/13 16:01:42 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d_bonus.h"
 
-void	rotate_left(t_game *game)
+void	rotate_right(t_game *game)
 {
 	double	x;
 	double	y;
@@ -29,7 +29,7 @@ void	rotate_left(t_game *game)
 	game->plane_y = p_x * sin(game->rotspeed) + p_y * cos(game->rotspeed);
 }
 
-void	rotate_right(t_game *game)
+void	rotate_left(t_game *game)
 {
 	double	x;
 	double	y;
@@ -75,7 +75,7 @@ int	key_press(int keycode, t_game *game)
 	return (0);
 }
 
-int key_release(int keycode, t_game *game)
+int	key_release(int keycode, t_game *game)
 {
 	if (keycode == KEY_W)
 		game->key.w = 0;
