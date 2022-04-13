@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:22:50 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/13 00:57:41 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 15:33:59 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	key_press(int keycode, t_game *game)
 	return (0);
 }
 
-int key_release(int keycode, t_game *game)
+int	key_release(int keycode, t_game *game)
 {
 	if (keycode == KEY_W)
 		game->key.w = 0;

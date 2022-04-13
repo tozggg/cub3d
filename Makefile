@@ -6,7 +6,7 @@
 #    By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/11 17:20:13 by jeson             #+#    #+#              #
-#    Updated: 2022/04/12 21:16:32 by taejkim          ###   ########.fr        #
+#    Updated: 2022/04/13 16:17:08 by taejkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC		=	check_map.c check.c init.c key.c move.c \
 SRC_B	=	check_map_bonus.c check_bonus.c init_bonus.c \
 			key_bonus.c move_bonus.c parse_bonus.c play_bonus.c \
 			raycasting_bonus.c set_dir_plane_bonus.c utils_bonus.c \
-			main_bonus.c
+			minimap_bonus.c main_bonus.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 OBJS = $(SRCS:.c=.o)

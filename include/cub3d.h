@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:16:07 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/12 21:47:42 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 16:04:28 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@
 # define F 4
 # define C 5
 
-
-typedef struct	s_file
+typedef struct s_file
 {
 	char	**split;
 	char	*info[6];
@@ -61,7 +60,7 @@ typedef struct	s_file
 	char	c_flag;
 }	t_file;
 
-typedef struct	s_key
+typedef struct s_key
 {
 	int		w;
 	int		a;
@@ -72,7 +71,7 @@ typedef struct	s_key
 	int		mouse_on;
 }	t_key;
 
-typedef struct	s_img
+typedef struct s_img
 {
 	void	*img;
 	int		*data;
@@ -83,7 +82,7 @@ typedef struct	s_img
 	int		height;
 }	t_img;
 
-typedef struct	s_game
+typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
@@ -106,7 +105,7 @@ typedef struct	s_game
 	double	rotspeed;
 }	t_game;
 
-typedef struct	s_dda
+typedef struct s_dda
 {
 	int		map_x;
 	int		map_y;
@@ -121,17 +120,17 @@ typedef struct	s_dda
 	int		tex_x;
 	int		tex_y;
 	int		index_y;
-	double	wallX;
+	double	wallx;
 	double	step;
-	double	texPos;
+	double	texpos;
 	double	camera_x;
-	double	rayDir_x;
-	double	rayDir_y;
-	double	deltaDist_x;
-	double	deltaDist_y;
-	double	sideDist_x;
-	double	sideDist_y;
-	double	perpwallDist;
+	double	raydir_x;
+	double	raydir_y;
+	double	deltadist_x;
+	double	deltadist_y;
+	double	sidedist_x;
+	double	sidedist_y;
+	double	perpwalldist;
 }	t_dda;
 
 // utils.c

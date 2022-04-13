@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   play.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:26:15 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:58:47 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 15:41:07 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	background(t_game *game)
 {
-	int x;
+	int	x;
 	int	y;
 
 	y = -1;

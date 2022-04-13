@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_bous.c                                        :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 13:49:34 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:43:12 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/13 16:20:43 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ int	loop(t_game *game)
 {
 	background(game);
 	raycasting(game);
+	minimap(game);
 	display(game);
 	update_game(game);
 	return (0);
 }
 
-int main(int ac, char *av[])
+int	main(int ac, char *av[])
 {
 	t_file	file;
 	t_game	game;

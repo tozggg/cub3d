@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_bous.c                                       :+:      :+:    :+:   */
+/*   parse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:20:42 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:43:21 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/13 16:15:28 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ static int	*load_texture(t_game *game, char *path, t_img *img)
 	int	x;
 	int	y;
 
-	img->img = mlx_xpm_file_to_image(game->mlx, path, &img->width, &img->height);
+	img->img = mlx_xpm_file_to_image(game->mlx,
+			path, &img->width, &img->height);
 	if (!img->img || img->width != TEX_SIZE || img->height != TEX_SIZE)
 		error_out("Error\ninvalid texture");
-	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
+	img->data = (int *)mlx_get_data_addr(img->img,
+			&img->bpp, &img->size_l, &img->endian);
 	res = (int *)malloc(sizeof(int) * (TEX_SIZE * TEX_SIZE));
 	y = -1;
 	while (++y < TEX_SIZE)
@@ -36,9 +38,9 @@ static int	*load_texture(t_game *game, char *path, t_img *img)
 
 static int	get_rgb(char *str)
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 
 	r = cut_rgb(str);
 	g = cut_rgb(str);
@@ -72,6 +74,8 @@ void	make_game(t_game *game, t_file file)
 	init_game(game);
 	parse_info(game, file);
 	game->map = file.map;
+	game->map_w = file.map_w;
+	game->map_h = file.map_h;
 	game->pos_x = file.c_x + 0.5;
 	game->pos_y = file.c_y + 0.5;
 	if (file.c_flag == 'N')

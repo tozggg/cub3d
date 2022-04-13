@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:20:42 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/12 21:48:05 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 15:33:34 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ static int	*load_texture(t_game *game, char *path, t_img *img)
 	int	x;
 	int	y;
 
-	img->img = mlx_xpm_file_to_image(game->mlx, path, &img->width, &img->height);
+	img->img = mlx_xpm_file_to_image(game->mlx,
+			path, &img->width, &img->height);
 	if (!img->img || img->width != TEX_SIZE || img->height != TEX_SIZE)
 		error_out("Error\ninvalid texture");
-	img->data = (int *)mlx_get_data_addr(img->img, &img->bpp, &img->size_l, &img->endian);
+	img->data = (int *)mlx_get_data_addr(img->img,
+			&img->bpp, &img->size_l, &img->endian);
 	res = (int *)malloc(sizeof(int) * (TEX_SIZE * TEX_SIZE));
 	y = -1;
 	while (++y < TEX_SIZE)
@@ -36,9 +38,9 @@ static int	*load_texture(t_game *game, char *path, t_img *img)
 
 static int	get_rgb(char *str)
 {
-	int r;
-	int g;
-	int b;
+	int	r;
+	int	g;
+	int	b;
 
 	r = cut_rgb(str);
 	g = cut_rgb(str);

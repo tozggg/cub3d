@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_bous.c                                       :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:13:50 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:43:36 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/13 16:15:58 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*cut_path(char *str, char *cut)
 
 int	cut_rgb(char *str)
 {
-	int res;
+	int	res;
 
 	if (!ft_isdigit(*str))
 		return (-1);

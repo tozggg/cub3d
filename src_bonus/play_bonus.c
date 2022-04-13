@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:26:15 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/11 17:58:59 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 16:16:02 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	background(t_game *game)
 {
-	int x;
+	int	x;
 	int	y;
 
 	y = -1;

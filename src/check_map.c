@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:19:04 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/13 15:48:28 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 16:12:38 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	check_map(t_file *file)
 				else
 					error_out("Error\ninvalid map");
 			}
-			check_surround(file, x , y);
+			check_surround(file, x, y);
 		}
 	}
 }
