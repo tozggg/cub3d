@@ -6,12 +6,12 @@
 #    By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/11 17:20:13 by jeson             #+#    #+#              #
-#    Updated: 2022/04/13 16:17:08 by taejkim          ###   ########.fr        #
+#    Updated: 2022/04/13 16:51:24 by taejkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
-NAME_B = cub3d_bonus
+NAME = cub3D
+NAME_B = cub3D_bonus
 
 INC_DIR = ./include/
 SRC_DIR = ./src/

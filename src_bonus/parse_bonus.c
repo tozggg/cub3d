@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:20:42 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/13 16:15:28 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 16:52:12 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,6 @@ void	make_game(t_game *game, t_file file)
 		set_dir_plane_w(game);
 	if (file.c_flag == 'E')
 		set_dir_plane_e(game);
-	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3d");
+	game->win = mlx_new_window(game->mlx, WIDTH, HEIGHT, "cub3D");
 	mlx_mouse_hide();
 }
