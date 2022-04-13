@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 20:58:31 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/13 16:14:44 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/13 21:56:54 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	background_buf_select(t_game *game, int x, int y)
 	rad = pow(abs(x - 79), 2) + pow(abs(y - 79), 2);
 	if (rad > 6400)
 		return ;
-	mx = (int)(game->pos_x - (79 - (double)x) / 16);
-	my = (int)(game->pos_y - (79 - (double)y) / 16);
+	mx = (int)(game->pos_x - (79 - x) / 16.0);
+	my = (int)(game->pos_y - (79 - y) / 16.0);
 	if (mx < 0 || mx >= game->map_w || my < 0 || my >= game->map_h || \
 		game->map[my][mx] == ' ')
 		game->buf[y][x] = 0x677a78;
