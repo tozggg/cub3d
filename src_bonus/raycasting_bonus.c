@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: taejkim <taejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:21:17 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/13 16:15:42 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/14 14:22:18 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static void	cal_color(t_dda *dda, t_game *game, int x)
 		dda->wallx = game->pos_x + dda->perpwalldist * dda->raydir_x;
 	dda->wallx -= floor(dda->wallx);
 	dda->tex_x = (int)(dda->wallx * (double)TEX_SIZE);
-	if (dda->side == 0 && dda->raydir_x > 0)
+	if (dda->side == 1)
 		dda->tex_x = TEX_SIZE - dda->tex_x - 1;
-	if (dda->side == 1 && dda->raydir_y < 0)
+	if (dda->side == 2)
 		dda->tex_x = TEX_SIZE - dda->tex_x - 1;
 	dda->step = TEX_SIZE * 1.0 / dda->lineheight;
 	dda->texpos = ((dda->drawstart - HEIGHT / 2)
