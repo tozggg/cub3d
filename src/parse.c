@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taejkim <taejkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:20:42 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/13 22:27:04 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/18 14:28:42 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,48 @@ static int	*load_texture(t_game *game, char *path, t_img *img)
 	return (res);
 }
 
+int	rgb_check(char **split)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (split[i])
+		i++;
+	if (i != 3)
+		return (1);
+	i = 0;
+	while (split[i])
+	{
+		j = 0;
+		while (split[i][j])
+		{
+			if (!ft_isdigit(split[i][j]))
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 static int	get_rgb(char *str)
 {
-	int	r;
-	int	g;
-	int	b;
+	int		r;
+	int		g;
+	int		b;
+	char	**split;
+	int		i;
 
-	r = cut_rgb(str);
-	g = cut_rgb(str);
-	b = cut_rgb(str);
-	if (r == -1 || g == -1 || b == -1)
-		error_out("Error\ninvalid rgb");
+	split = ft_split(str, ',');
+	if (rgb_check(split))
+		error_out("Error\ncannot load RGB color");
+	if (rgb_atoi(split, &r, &g, &b))
+		error_out("Error\ncannot load RGB color");
+	i = -1;
+	while (split[++i])
+		free(split[i]);
+	free(split);
 	return ((r * 256 * 256) + (g * 256) + b);
 }
 

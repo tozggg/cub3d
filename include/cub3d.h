@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:16:07 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/13 16:04:28 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/18 14:29:08 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	error_out(char *msg);
 int		is_cub_extension(char *str);
 char	*read_file(char *pathname);
 char	*cut_path(char *str, char *cut);
-int		cut_rgb(char *str);
+int		rgb_atoi(char **split, int *r, int *g, int *b);
 
 // init.c
 void	init_file(t_file *file);

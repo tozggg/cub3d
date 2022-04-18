@@ -6,7 +6,7 @@
 /*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:13:50 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/13 15:40:57 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/18 14:28:47 by jeson            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,31 @@ char	*cut_path(char *str, char *cut)
 	return (str);
 }
 
-int	cut_rgb(char *str)
+int	rgb_atoi(char **split, int *r, int *g, int *b)
 {
 	int	res;
+	int	i;
+	int	cnt;
 
-	if (!ft_isdigit(*str))
-		return (-1);
+	cnt = 0;
 	res = 0;
-	while (*str && ft_isdigit(*str))
+	while (split[cnt])
 	{
-		res = (res * 10) + (*str - '0');
-		++str;
+		i = -1;
+		res = 0;
+		while (ft_isdigit(split[cnt][++i]))
+		{
+			res = 10 * res + (split[cnt][i] - '0');
+			if (res < 0 || res > 255)
+				return (1);
+			if (!split[cnt][i + 1] && cnt == 0)
+				*r = res;
+			else if (!split[cnt][i + 1] && cnt == 1)
+				*g = res;
+			else if (!split[cnt][i + 1] && cnt == 2)
+				*b = res;
+		}
+		cnt++;
 	}
-	while (*str == ' ')
-		++str;
-	if (*str == ',')
-		++str;
-	while (*str == ' ')
-		++str;
-	if (0 <= res && res <= 255)
-		return (res);
-	else
-		return (-1);
+	return (0);
 }
