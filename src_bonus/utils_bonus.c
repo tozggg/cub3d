@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: taejkim <taejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:13:50 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/18 14:30:21 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/18 15:04:58 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ char	*cut_path(char *str, char *cut)
 int	rgb_atoi(char **split, int *r, int *g, int *b)
 {
 	int	res;
-	int	i;
 	int	cnt;
+	int	i;
 
 	cnt = 0;
 	res = 0;
@@ -82,7 +82,7 @@ int	rgb_atoi(char **split, int *r, int *g, int *b)
 	{
 		i = -1;
 		res = 0;
-		while (ft_isdigit(split[cnt][++i]))
+		while (split[cnt][++i])
 		{
 			res = 10 * res + (split[cnt][i] - '0');
 			if (res < 0 || res > 255)

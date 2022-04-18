@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: taejkim <taejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:20:42 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/18 14:31:33 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/18 15:05:21 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static int	get_rgb(char *str)
 	int		i;
 
 	split = ft_split(str, ',');
+	if (!split)
+		error_out("Error\nsplit error");
 	if (rgb_check(split))
 		error_out("Error\ncannot load RGB color");
 	if (rgb_atoi(split, &r, &g, &b))
