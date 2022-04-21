@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: taejkim <taejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:16:07 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/18 14:29:55 by jeson            ###   ########.fr       */
+/*   Updated: 2022/04/21 19:30:36 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,6 @@ typedef struct s_dda
 void	error_out(char *msg);
 int		is_cub_extension(char *str);
 char	*read_file(char *pathname);
-char	*cut_path(char *str, char *cut);
-int		rgb_atoi(char **split, int *r, int *g, int *b);
 
 // init.c
 void	init_file(t_file *file);
@@ -156,6 +154,9 @@ void	set_dir_plane_n(t_game *game);
 void	set_dir_plane_s(t_game *game);
 void	set_dir_plane_w(t_game *game);
 void	set_dir_plane_e(t_game *game);
+
+//rgb.c
+int		get_rgb(char *str);
 
 // parse.c
 void	make_game(t_game *game, t_file file);

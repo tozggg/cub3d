@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jeson <jeson@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: taejkim <taejkim@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/11 17:20:13 by jeson             #+#    #+#              #
-#    Updated: 2022/04/18 14:20:59 by jeson            ###   ########.fr        #
+#    Updated: 2022/04/21 19:32:26 by taejkim          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,12 @@ LIBFLAGS = -L $(LIB_DIR) -lft -L $(MLX_DIR) -lmlx -framework OpenGL -framework A
 
 SRC		=	check_map.c check.c init.c key.c move.c \
 			parse.c play.c raycasting.c set_dir_plane.c \
-			utils.c minimap.c main.c
+			utils.c minimap.c rgb.c main.c
 
 SRC_B	=	check_map_bonus.c check_bonus.c init_bonus.c \
 			key_bonus.c move_bonus.c parse_bonus.c play_bonus.c \
 			raycasting_bonus.c set_dir_plane_bonus.c utils_bonus.c \
-			minimap_bonus.c main_bonus.c
+			minimap_bonus.c rgb_bonus.c main_bonus.c
 
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 OBJS = $(SRCS:.c=.o)

@@ -6,11 +6,25 @@
 /*   By: taejkim <taejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:20:42 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/18 15:03:54 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/21 18:38:10 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
+
+static char	*cut_path(char *str, char *cut)
+{
+	while (*cut && *str)
+	{
+		if (*cut != *str)
+			return (NULL);
+		++cut;
+		++str;
+	}
+	while (*str == ' ')
+		++str;
+	return (str);
+}
 
 static int	*load_texture(t_game *game, char *path, t_img *img)
 {
@@ -36,53 +50,6 @@ static int	*load_texture(t_game *game, char *path, t_img *img)
 	}
 	mlx_destroy_image(game->mlx, img->img);
 	return (res);
-}
-
-int	rgb_check(char **split)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (split[i])
-		i++;
-	if (i != 3)
-		return (1);
-	i = 0;
-	while (split[i])
-	{
-		j = 0;
-		while (split[i][j])
-		{
-			if (!ft_isdigit(split[i][j]))
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
-}
-
-static int	get_rgb(char *str)
-{
-	int		r;
-	int		g;
-	int		b;
-	char	**split;
-	int		i;
-
-	split = ft_split(str, ',');
-	if (!split)
-		error_out("Error\nsplit error");
-	if (rgb_check(split))
-		error_out("Error\ncannot load RGB color");
-	if (rgb_atoi(split, &r, &g, &b))
-		error_out("Error\ncannot load RGB color");
-	i = -1;
-	while (split[++i])
-		free(split[i]);
-	free(split);
-	return ((r * 256 * 256) + (g * 256) + b);
 }
 
 static void	parse_info(t_game *game, t_file file)

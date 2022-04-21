@@ -6,7 +6,7 @@
 /*   By: taejkim <taejkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 17:13:50 by taejkim           #+#    #+#             */
-/*   Updated: 2022/04/18 15:04:58 by taejkim          ###   ########.fr       */
+/*   Updated: 2022/04/21 19:29:36 by taejkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,47 +54,4 @@ char	*read_file(char *pathname)
 	free(buf);
 	close(fd);
 	return (res);
-}
-
-char	*cut_path(char *str, char *cut)
-{
-	while (*cut && *str)
-	{
-		if (*cut != *str)
-			return (NULL);
-		++cut;
-		++str;
-	}
-	while (*str == ' ')
-		++str;
-	return (str);
-}
-
-int	rgb_atoi(char **split, int *r, int *g, int *b)
-{
-	int	res;
-	int	cnt;
-	int	i;
-
-	cnt = 0;
-	res = 0;
-	while (split[cnt])
-	{
-		i = -1;
-		res = 0;
-		while (split[cnt][++i])
-		{
-			res = 10 * res + (split[cnt][i] - '0');
-			if (res < 0 || res > 255)
-				return (1);
-			if (!split[cnt][i + 1] && cnt == 0)
-				*r = res;
-			else if (!split[cnt][i + 1] && cnt == 1)
-				*g = res;
-			else if (!split[cnt][i + 1] && cnt == 2)
-				*b = res;
-		}
-		cnt++;
-	}
-	return (0);
 }
